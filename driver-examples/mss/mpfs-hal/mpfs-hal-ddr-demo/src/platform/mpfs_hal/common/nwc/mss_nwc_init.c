@@ -14,10 +14,8 @@
 #include "mpfs_hal/mss_hal.h"
 #include "mss_nwc_init.h"
 
-#ifdef DEBUG_DDR_INIT
 #include "drivers/mss/mss_mmuart/mss_uart.h"
 extern mss_uart_instance_t *g_debug_uart ;
-#endif
 
 /*******************************************************************************
  * Local Defines
