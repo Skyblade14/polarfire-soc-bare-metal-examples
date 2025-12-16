@@ -312,7 +312,7 @@ uint8_t mss_nwc_init(void)
  */
 uint8_t mss_nwc_init_ddr(void)
 {
-    uint64_t startTime_mss_mwc_init_ddr_Measurement = rdcycle(); // CHANGE FOR DDR MEASUREMENT
+    uint64_t startTime_mss_mwc_init_ddr_Measurement = CLINT->MTIME; // CHANGE FOR DDR MEASUREMENT
     uint8_t error = 0U;
 #ifdef DDR_SUPPORT
     uint64_t next_time;
@@ -341,7 +341,7 @@ uint8_t mss_nwc_init_ddr(void)
     }
 #endif
 
-    uint64_t duration_mss_nwc_init_ddr = (uint64_t)(rdcycle() - startTime_mss_mwc_init_ddr_Measurement) / (LIBERO_SETTING_MSS_RTC_TOGGLE_CLK / 1000); // CHANGE FOR DDR MEASUREMENT
+    uint64_t duration_mss_nwc_init_ddr = (uint64_t)(CLINT->MTIME - startTime_mss_mwc_init_ddr_Measurement) / (LIBERO_SETTING_MSS_RTC_TOGGLE_CLK / 1000); // CHANGE FOR DDR MEASUREMENT
     (void)uprint32(g_debug_uart, "\n\r Duration of mss_nwc_init_ddr: ",
                    duration_mss_nwc_init_ddr); // CHANGE FOR DDR MEASUREMENT
     // INFO: Duration is printed as hex value representing milliseconds, e.g. 0x3E8 = 1000ms = 1 second
