@@ -30,6 +30,23 @@ g5_mss_top_scb_regs_TypeDef     * const SCB_REGS            = (g5_mss_top_scb_re
  */
 static uint64_t report_status_functions(MSS_REPORT_STATUS report_status, uint64_t next_time);
 
+static void dumpbyteDDR(mss_uart_instance_t * uart, uint8_t b)
+{
+    const uint8_t hexchrs[] = { '0','1','2','3','4','5','6','7','8','9','A','B',\
+            'C','D','E','F' };
+    MSS_UART_polled_tx(uart, &hexchrs[b >> 4u] , 1);
+    MSS_UART_polled_tx(uart, &hexchrs[b & 0x0fu] , 1);
+}
+
+void uprint32DDR(mss_uart_instance_t * uart, const char* msg, uint32_t d)
+{
+    MSS_UART_polled_tx_string(uart, (const uint8_t *)msg);
+    for (unsigned i=0; i < 4; i++)
+    {
+        dumpbyte(uart, (d >> (8*(3-i))) & 0xffu);
+    }
+}
+
 /*******************************************************************************
  * extern defined functions
  */
@@ -340,7 +357,7 @@ uint8_t mss_nwc_init_ddr(void)
 #endif
 
     uint64_t duration_mss_nwc_init_ddr = (uint64_t)(CLINT->MTIME - startTime_mss_mwc_init_ddr_Measurement) / (LIBERO_SETTING_MSS_RTC_TOGGLE_CLK / 1000); // CHANGE FOR DDR MEASUREMENT
-    (void)uprint32(&g_mss_uart0_lo, "\n\r Duration of mss_nwc_init_ddr: ",
+    (void)uprint32DDR(&g_mss_uart0_lo, "\n\r Duration of mss_nwc_init_ddr: ",
                    duration_mss_nwc_init_ddr); // CHANGE FOR DDR MEASUREMENT
     // INFO: Duration is printed as hex value representing milliseconds, e.g. 0x3E8 = 1000ms = 1 second
 
