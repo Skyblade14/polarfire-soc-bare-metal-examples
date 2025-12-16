@@ -43,7 +43,7 @@ void uprint32DDR(mss_uart_instance_t * uart, const char* msg, uint32_t d)
     MSS_UART_polled_tx_string(uart, (const uint8_t *)msg);
     for (unsigned i=0; i < 4; i++)
     {
-        dumpbyte(uart, (d >> (8*(3-i))) & 0xffu);
+        dumpbyteDDR(uart, (d >> (8*(3-i))) & 0xffu);
     }
 }
 
