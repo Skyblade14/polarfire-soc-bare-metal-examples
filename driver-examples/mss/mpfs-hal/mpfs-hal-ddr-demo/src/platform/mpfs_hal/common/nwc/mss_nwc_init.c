@@ -342,7 +342,7 @@ uint8_t mss_nwc_init_ddr(void)
 #endif
 
     uint64_t duration_mss_nwc_init_ddr = (uint64_t)(CLINT->MTIME - startTime_mss_mwc_init_ddr_Measurement) / (LIBERO_SETTING_MSS_RTC_TOGGLE_CLK / 1000); // CHANGE FOR DDR MEASUREMENT
-    (void)uprint32(g_debug_uart, "\n\r Duration of mss_nwc_init_ddr: ",
+    (void)uprint32(&g_mss_uart0_lo, "\n\r Duration of mss_nwc_init_ddr: ",
                    duration_mss_nwc_init_ddr); // CHANGE FOR DDR MEASUREMENT
     // INFO: Duration is printed as hex value representing milliseconds, e.g. 0x3E8 = 1000ms = 1 second
 
